@@ -81,15 +81,15 @@ class Analysis
 			}
 		}
 
-		#echo $this->_dump($comps);
+		echo $this->_dump($comps);
 
 		// Second output file
 		foreach($comps as $element=>$temperaturedata) {
-			$output2[$element][] = "Ev,110,err,100,err,111,err,,Ebulk,110,100,111,,Esurf,110,100,111";
+			$output2[$element][] = "Ev,110,err,100,err,111,err,000,err,,Ebulk,110,100,111,000,,Esurf,110,100,111,000";
 			foreach($temperaturedata as $temperature=>$energydata) {
-				$rowdata  = "{$temperature},{$energydata[110]['VFE']},{$energydata[110]['sdv']},{$energydata[100]['VFE']},{$energydata[100]['sdv']},{$energydata[111]['VFE']},{$energydata[111]['sdv']},,";
-				$rowdata .= "{$temperature},{$energydata[110]['BBE']},{$energydata[100]['BBE']},{$energydata[111]['BBE']},,";
-				$rowdata .= "{$temperature},{$energydata[110]['SBE']},{$energydata[100]['SBE']},{$energydata[111]['SBE']}";
+				$rowdata  = "{$temperature},{$energydata[110]['VFE']},{$energydata[110]['sdv']},{$energydata[100]['VFE']},{$energydata[100]['sdv']},{$energydata[111]['VFE']},{$energydata[111]['sdv']},{$energydata['000']['VFE']},{$energydata['000']['sdv']},,";
+				$rowdata .= "{$temperature},{$energydata[110]['BBE']},{$energydata[100]['BBE']},{$energydata[111]['BBE']},{$energydata['000']['BBE']},,";
+				$rowdata .= "{$temperature},{$energydata[110]['SBE']},{$energydata[100]['SBE']},{$energydata[111]['SBE']},{$energydata['000']['SBE']}";
 				$output2[$element][] = $rowdata;
 			}
 			 
@@ -97,7 +97,7 @@ class Analysis
 
 		$this->_datasort = $output;
 		$this->_datacomp = $output2;
-
+		echo $this->_dump($output2);
 	}
 
 	public function save($output=NULL) 

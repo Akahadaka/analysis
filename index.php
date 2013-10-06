@@ -1,7 +1,7 @@
 <?php
 include('analysis.class.php');
 
-$default_source = "C:\Temp\Sims\Pt\\";
+$default_source = "C:\Temp\Sims\Cu\\";
 $default_output = "C:\Temp\Sims\\";
 
 if (isset($_POST['submit'])) {
@@ -10,11 +10,11 @@ if (isset($_POST['submit'])) {
 	$default_output = $_POST['output'];
 
 	$data = new Analysis($_POST['source']);
-	$data->subfolders = TRUE;
+	#$data->subfolders = TRUE;
 
 	$data->process();
 
-	$data->save($_POST['output']);
+	#$data->save($_POST['output']);
 
 }
 
