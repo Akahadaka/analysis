@@ -46,7 +46,7 @@ class Analysis
 					$stats   = array();
 
 					foreach($temperaturedata as $row=>$rowdata) {
-						$calculate = TRUE;
+						$calculate = ($row > 4); // Ignore first 5 in averages calculation
 						if (isset($rowdata['nul'])) $EPC = trim($rowdata['nul']); else {$EPC = "0"; $calculate = FALSE;}
 						if (isset($rowdata['psm'])) $SBE = trim($rowdata['psm']); else {$SBE = "0"; $calculate = FALSE;}
 						if (isset($rowdata['vac'])) $EVC = trim($rowdata['vac']); else {$EVC = "0"; $calculate = FALSE;}
