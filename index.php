@@ -14,7 +14,7 @@ if (isset($_POST['submit'])) {
 
 	$data->process();
 
-	#$data->save($_POST['output']);
+	$data->save($_POST['output']);
 
 }
 

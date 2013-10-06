@@ -40,7 +40,7 @@ class Analysis
 
 		foreach($data as $element=>$elementdata) {
 			foreach($elementdata as $orientation=>$orientationdata) {
-				arsort($orientationdata);
+				ksort($orientationdata);
 				$output[$element][$orientation][] = "Temperature,EPC,EVC,BBE,SBE,VFE";
 				foreach($orientationdata as $temperature=>$temperaturedata) {
 					$stats   = array();
@@ -81,9 +81,10 @@ class Analysis
 			}
 		}
 
-		echo $this->_dump($comps);
-
+		#echo $this->_dump($comps);
+		
 		// Second output file
+		error_reporting(0);
 		foreach($comps as $element=>$temperaturedata) {
 			$output2[$element][] = "Ev,110,err,100,err,111,err,000,err,,Ebulk,110,100,111,000,,Esurf,110,100,111,000";
 			foreach($temperaturedata as $temperature=>$energydata) {
@@ -92,19 +93,19 @@ class Analysis
 				$rowdata .= "{$temperature},{$energydata[110]['SBE']},{$energydata[100]['SBE']},{$energydata[111]['SBE']},{$energydata['000']['SBE']}";
 				$output2[$element][] = $rowdata;
 			}
-			 
 		}
+		error_reporting(-1);
 
 		$this->_datasort = $output;
 		$this->_datacomp = $output2;
-		echo $this->_dump($output2);
+		#echo $this->_dump($output2);
 	}
 
 	public function save($output=NULL) 
 	{
 		$this->output($output);
 
-		echo $this->_dump($this->_datasort);
+		#echo $this->_dump($this->_datasort);
 
 		foreach($this->_datasort as $element=>$elementdata) {
 			foreach ($elementdata as $orientation=>$orientationdata) {
