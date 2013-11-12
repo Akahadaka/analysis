@@ -2,7 +2,7 @@
 include('analysis.class.php');
 
 $default_source = "test/Cu/";
-$default_output = "test/Cu/Output/";
+$default_output = "test/";
 
 if (isset($_POST['submit'])) {
 

@@ -86,12 +86,36 @@ class Analysis
 		// Second output file
 		error_reporting(0);
 		foreach($comps as $element=>$temperaturedata) {
-			$output2[$element][] = "Ev,110,err,100,err,111,err,000,err,,Ebulk,110,100,111,000,,Esurf,110,100,111,000";
+			#$output2[$element][] = "Ev,110,err,100,err,111,err,000,err,,Ebulk,110,100,111,000,,Esurf,110,100,111,000";
+
+			$ev = "Ev,";
+			$ebulk = "Ebulk,";
+			$esurf = "Esurf,";
+			foreach($temperaturedata[0] as $orientation=>$orientationdata) {
+				$ev .= "{$orientation},err,";
+				$ebulk .= "{$orientation},";
+				$esurf .= "{$orientation},";
+			}
+			
+			$output2[$element][] = $ev . "000,err,," . $ebulk . "000,," . $esurf . "000";
+			
 			foreach($temperaturedata as $temperature=>$energydata) {
-				$rowdata  = "{$temperature},{$energydata[110]['VFE']},{$energydata[110]['sdv']},{$energydata[100]['VFE']},{$energydata[100]['sdv']},{$energydata[111]['VFE']},{$energydata[111]['sdv']},{$energydata['000']['VFE']},{$energydata['000']['sdv']},,";
-				$rowdata .= "{$temperature},{$energydata[110]['BBE']},{$energydata[100]['BBE']},{$energydata[111]['BBE']},{$energydata['000']['BBE']},,";
-				$rowdata .= "{$temperature},{$energydata[110]['SBE']},{$energydata[100]['SBE']},{$energydata[111]['SBE']},{$energydata['000']['SBE']}";
-				$output2[$element][] = $rowdata;
+				#$rowdata  = "{$temperature},{$energydata[110]['VFE']},{$energydata[110]['sdv']},{$energydata[100]['VFE']},{$energydata[100]['sdv']},{$energydata[111]['VFE']},{$energydata[111]['sdv']},{$energydata['000']['VFE']},{$energydata['000']['sdv']},,";
+				#$rowdata .= "{$temperature},{$energydata[110]['BBE']},{$energydata[100]['BBE']},{$energydata[111]['BBE']},{$energydata['000']['BBE']},,";
+				#$rowdata .= "{$temperature},{$energydata[110]['SBE']},{$energydata[100]['SBE']},{$energydata[111]['SBE']},{$energydata['000']['SBE']}";
+				#$output2[$element][] = $rowdata;
+				
+				$ev = "{$temperature},";
+				$ebulk = "{$temperature},";
+				$esurf = "{$temperature},";
+				foreach($energydata as $orientation=>$orientationdata) {
+					$ev .= "{$orientationdata['VFE']},{$orientationdata['sdv']},";
+					$ebulk .= "{$orientationdata['BBE']},";
+					$esurf .= "{$orientationdata['SBE']},";
+				}
+					
+				$output2[$element][] = $ev . "{$energydata['000']['VFE']},{$energydata['000']['sdv']},," . $ebulk . "{$energydata['000']['BBE']},," . $esurf . "{$energydata['000']['SBE']}";
+				#$output2[$element][] = "===";
 			}
 		}
 		error_reporting(-1);
