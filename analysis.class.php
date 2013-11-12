@@ -109,7 +109,7 @@ class Analysis
 
 		foreach($this->_datasort as $element=>$elementdata) {
 			foreach ($elementdata as $orientation=>$orientationdata) {
-				#file_put_contents($this->output . "{$element}_{$orientation}.csv", implode("\n", $orientationdata));
+				file_put_contents($this->output . "{$element}_{$orientation}.csv", implode("\n", $orientationdata));
 			}
 		}
 
@@ -117,7 +117,7 @@ class Analysis
 		echo $this->_dump($this->_datacomp);
 
 		foreach($this->_datacomp as $element=>$elementdata) {
-			#file_put_contents($this->output . "{$element}_vac_form_e.csv", implode("\n", $elementdata));
+			file_put_contents($this->output . "{$element}_vac_form_e.csv", implode("\n", $elementdata));
 		}
 
 	}
