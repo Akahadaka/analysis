@@ -1,8 +1,8 @@
 <?php
 include('analysis.class.php');
 
-$default_source = "C:\Temp\Sims\Cu\\";
-$default_output = "C:\Temp\Sims\\";
+$default_source = "test/Cu/";
+$default_output = "test/Cu/Output/";
 
 if (isset($_POST['submit'])) {
 

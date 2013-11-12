@@ -46,16 +46,16 @@ class Analysis
 					$stats   = array();
 
 					foreach($temperaturedata as $row=>$rowdata) {
-						$calculate = ($row > 4); // Ignore first 5 in averages calculation
+						$calculate = ($row > 1); // Ignore first 2 in averages calculation
 						if (isset($rowdata['nul'])) $EPC = trim($rowdata['nul']); else {$EPC = "0"; $calculate = FALSE;}
 						if (isset($rowdata['psm'])) $SBE = trim($rowdata['psm']); else {$SBE = "0"; $calculate = FALSE;}
 						if (isset($rowdata['vac'])) $EVC = trim($rowdata['vac']); else {$EVC = "0"; $calculate = FALSE;}
 
-						$BBE = ($calculate) ? $EPC - $EVC : "0";
-            			$VFE = ($calculate) ? $BBE - $SBE : "0";
-            			if ($calculate) $stats['BBE'][] = $BBE;
-            			if ($calculate) $stats['SBE'][] = $SBE;
-            			if ($calculate) $stats['VFE'][] = $VFE;
+						$BBE = ($calculate && $EPC && $EVC) ? $EPC - $EVC : "0";
+            			$VFE = ($calculate && $BBE && $SBE) ? $BBE - $SBE : "0";
+            			if ($calculate && $BBE) $stats['BBE'][] = $BBE;
+            			if ($calculate && $SBE) $stats['SBE'][] = $SBE;
+            			if ($calculate && $VFE) $stats['VFE'][] = $VFE;
             			$output[$element][$orientation][] = "{$temperature},{$EPC},{$EVC},{$BBE},{$SBE},{$VFE}";
 
 
@@ -65,10 +65,10 @@ class Analysis
 					#echo $this->_dump($stats['VFE']);
 					#echo $this->_dump();
 
-					$avg_BBE = $this->_average($stats['BBE']);
-					$avg_SBE = $this->_average($stats['SBE']);
-					$avg_VFE = $this->_average($stats['VFE']);
-					$deviant = $this->_standard_deviation($stats['VFE']);
+					$avg_BBE = (isset($stats['BBE'])) ? $this->_average($stats['BBE']) : "0";
+					$avg_SBE = (isset($stats['SBE'])) ? $this->_average($stats['SBE']) : "0";
+					$avg_VFE = (isset($stats['VFE'])) ? $this->_average($stats['VFE']) : "0";
+					$deviant = (isset($stats['VFE'])) ? $this->_standard_deviation($stats['VFE']) : "0";
 					$output[$element][$orientation][] = ",,,{$avg_BBE},{$avg_SBE},{$avg_VFE}";
 					$output[$element][$orientation][] = ",,,,,{$deviant}";
 
@@ -105,11 +105,11 @@ class Analysis
 	{
 		$this->output($output);
 
-		#echo $this->_dump($this->_datasort);
+		echo $this->_dump($this->_datasort);
 
 		foreach($this->_datasort as $element=>$elementdata) {
 			foreach ($elementdata as $orientation=>$orientationdata) {
-				file_put_contents($this->output . "{$element}_{$orientation}.csv", implode("\n", $orientationdata));
+				#file_put_contents($this->output . "{$element}_{$orientation}.csv", implode("\n", $orientationdata));
 			}
 		}
 
@@ -117,7 +117,7 @@ class Analysis
 		echo $this->_dump($this->_datacomp);
 
 		foreach($this->_datacomp as $element=>$elementdata) {
-			file_put_contents($this->output . "{$element}_vac_form_e.csv", implode("\n", $elementdata));
+			#file_put_contents($this->output . "{$element}_vac_form_e.csv", implode("\n", $elementdata));
 		}
 
 	}
