@@ -46,7 +46,7 @@ class Analysis
 					$stats   = array();
 
 					foreach($temperaturedata as $row=>$rowdata) {
-						$calculate = ($row > 1); // Ignore first 2 in averages calculation
+						$calculate = TRUE; // calculate all
 						if (isset($rowdata['nul'])) $EPC = trim($rowdata['nul']); else {$EPC = "0"; $calculate = FALSE;}
 						if (isset($rowdata['psm'])) $SBE = trim($rowdata['psm']); else {$SBE = "0"; $calculate = FALSE;}
 						if (isset($rowdata['vac'])) $EVC = trim($rowdata['vac']); else {$EVC = "0"; $calculate = FALSE;}
@@ -154,7 +154,7 @@ class Analysis
 
 		if ($handler = opendir($source)){
 			while (($filename = readdir($handler)) !== FALSE){
-			    if (strpos($filename, '.txt') !== FALSE){
+			    if ((strpos($filename, '.txt') !== FALSE) && (strpos($filename, '_') !== FALSE) && (strpos($filename, '.gz') === FALSE)){
 			    	$this->_getDataFile($source.$filename);
 			    } else if ($this->subfolders) {
 			    	if (($filename != ".") && ($filename != "..") && is_dir($filename)) {
