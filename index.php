@@ -6,15 +6,15 @@ $default_output = "test/";
 
 if (isset($_POST['submit'])) {
 
-	$default_source = $_POST['source'];
-	$default_output = $_POST['output'];
+    $default_source = $_POST['source'];
+    $default_output = $_POST['output'];
 
-	$data = new Analysis($_POST['source']);
-	#$data->subfolders = TRUE;
+    $data = new Analysis($_POST['source']);
+    #$data->subfolders = TRUE;
 
-	$data->process();
+    $data->process();
 
-	$data->save($_POST['output']);
+    $data->save($_POST['output']);
 
 }
 
