@@ -10,7 +10,7 @@
 				<div><input type="text" name="output" value="<?php echo $default_output; ?>" style="width:100%;font-size:1.05em;padding:5px" /></div>
 			</div>
 			<div style="padding:5px;">
-				<input type="submit" name="submit" value="Save" style="font-size:1.2em;padding:10px 30px" /></div>
+				<input type="submit" name="submit" value="Save" style="font-size:1.1em;padding:5px 20px" /></div>
 			</div>
 		</form>
             
