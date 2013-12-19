@@ -3,6 +3,7 @@ include('analysis.class.php');
 
 $default_source = "test/Cu/";
 $default_output = "test/";
+$dump_data      = '';
 
 if (isset($_POST['submit'])) {
 

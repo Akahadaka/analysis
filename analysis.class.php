@@ -128,9 +128,11 @@ class Analysis
 
     public function save($output=NULL) 
     {
+        global $dump_data;
+        
         $this->output($output);
 
-        echo $this->_dump($this->_datasort);
+        $dump_data .= $this->_dump($this->_datasort);
 
         foreach($this->_datasort as $element=>$elementdata) {
             foreach ($elementdata as $orientation=>$orientationdata) {
@@ -139,7 +141,7 @@ class Analysis
         }
 
         //Second output file
-        echo $this->_dump($this->_datacomp);
+        $dump_data .= $this->_dump($this->_datacomp);
 
         foreach($this->_datacomp as $element=>$elementdata) {
             file_put_contents($this->output . "{$element}_vac_form_e.csv", implode("\n", $elementdata));
@@ -204,13 +206,12 @@ class Analysis
 
     private function _msg($message)
     {
-        echo $message . "<br />";
+        global $dump_data;
+        $dump_data .= $message . "<br />";
     }
 
     private function _dump($variable)
     {
-        print("<pre>");
-        print_r($variable);
-        print("</pre>");
+        return "<pre>" . print_r($variable, true) . "</pre>";
     }
 }

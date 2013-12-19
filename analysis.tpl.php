@@ -3,15 +3,18 @@
 		<form method="post">
 			<div style="padding:5px;">
 				<div><label for="source">Enter the folder location of your TXT files:</label></div>
-				<div><input type="text" name="source" value="<?php echo $default_source; ?>" /></div>
+				<div><input type="text" name="source" value="<?php echo $default_source; ?>" style="width:100%;font-size:1.05em;padding:5px"/></div>
 			</div>
 			<div style="padding:5px;">
 				<div><label for="output">Enter the location to save your output:</label></div>
-				<div><input type="text" name="output" value="<?php echo $default_output; ?>" /></div>
+				<div><input type="text" name="output" value="<?php echo $default_output; ?>" style="width:100%;font-size:1.05em;padding:5px" /></div>
 			</div>
 			<div style="padding:5px;">
-				<input type="submit" name="submit" value="Save" /></div>
+				<input type="submit" name="submit" value="Save" style="font-size:1.2em;padding:10px 30px" /></div>
 			</div>
 		</form>
+            
 	</div>
+        
+        <?php echo $dump_data; ?>
 </body>
